@@ -1,0 +1,33 @@
+version: 2
+ 
+models:
+  - name: staging_customers
+    columns:
+      - name: customerid
+        tests:
+          - not_null
+  - name: staging_products
+    columns:
+      - name: productid
+        tests:
+          - not_null
+  - name: staging_shipments
+    columns:
+      - name: status
+        tests:
+          - accepted_values:
+                values: ["shipped","ordered","returned","replaced"]
+  - name: staging_order_details
+    columns:
+      - name: orderid
+        tests:
+          - relationships:
+              to: ref('staging_orders')
+              field: orderid
+  - name: staging_employees
+    columns:
+      - name: employeeid
+        tests: 
+          - unique
+          - not_null
+          - is_even

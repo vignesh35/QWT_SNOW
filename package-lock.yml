@@ -1,4 +1,6 @@
 packages:
   - package: calogica/dbt_date
     version: 0.10.1
-sha1_hash: 68d2605be28559dd2b3782d4f71530cd7c495b15
+  - package: infinitelambda/dq_tools
+    version: 1.10.2
+sha1_hash: 19b743803c4aa1f76363b18848bbd8f27e7597e6

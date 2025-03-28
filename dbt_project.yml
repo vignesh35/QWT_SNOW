@@ -40,3 +40,15 @@ seeds:
   +schema: lkp_dev
 vars:
   v_division: 'North America'
+
+models:
+  pre-hook:
+    - "insert into auditing_dev.models_audit_info(modelname, starttime, endtime, duration) values ('{{this}}', current_timestamp, null, null);"
+  post-hook:
+    - "update auditing_dev.models_audit_info set endtime = current_timestamp, duration = datediff('second', starttime, current_timestamp) where modelname = '{{this}}';"
+ 
+  dq_tools:
+    +schema: AUDITING_DEV
+
+  dbt_dq_tool_schema: AUDITING_DEV
+  dq_tools_enable_store_test_results: True
