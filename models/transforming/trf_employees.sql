@@ -1,4 +1,4 @@
-{{ config(materialized = 'table', schema = 'transforming_dev') }}
+{{ config(materialized = 'table', schema = {{env_var('DBT_TRANFORMSCHEMA', 'TRANSFORMING_DEV')}}) }}
 with recursive managers 
       -- Column names for the "view"/CTE
     (indent, office, employee_id, employee_name, employee_title, manager_id, manager_name, manager_title) 

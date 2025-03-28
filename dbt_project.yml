@@ -43,12 +43,9 @@ vars:
 
 models:
   pre-hook:
-    - "insert into auditing_dev.models_audit_info(modelname, starttime, endtime, duration) values ('{{this}}', current_timestamp, null, null);"
+    - "insert into {{env_var('DBt_SOURCEDB', 'QWT_ANALYTICS_DEV')}}.{{env_var('DBT_AUDITSCHEMA', 'AUDITING_DEV')}}.models_audit_info(modelname, starttime, endtime, duration) values ('{{this}}', current_timestamp, null, null);"
   post-hook:
-    - "update auditing_dev.models_audit_info set endtime = current_timestamp, duration = datediff('second', starttime, current_timestamp) where modelname = '{{this}}';"
- 
+    - "update {{env_var('DBt_SOURCEDB', 'QWT_ANALYTICS_DEV')}}.{{env_var('DBT_AUDITSCHEMA', 'AUDITING_DEV')}}.models_audit_info set endtime = current_timestamp, duration = datediff('second', starttime, current_timestamp) where modelname = '{{this}}';"
   dq_tools:
     +schema: AUDITING_DEV
 
-  dbt_dq_tool_schema: AUDITING_DEV
-  dq_tools_enable_store_test_results: True
